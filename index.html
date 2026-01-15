@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="專業系統開發服務 - 客製化系統、爬蟲、自動化工具、企業內部系統開發">
+    <meta name="keywords" content="系統開發, 客製化系統, Python, 爬蟲, 自動化, 企業系統">
+    <title>DevCraft 系統開發工作室 | 客製化系統・爬蟲・自動化・企業工具</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <span class="top-bar-text">
+                    <span class="highlight">🎯 專注中小企業數位轉型</span>
+                    ｜ 免費諮詢專案需求
+                </span>
+                <div class="top-bar-contact">
+                    <a href="#contact">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                        </svg>
+                        LINE 諮詢
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="#" class="nav-logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16,18 22,12 16,6"/>
+                            <polyline points="8,6 2,12 8,18"/>
+                            <line x1="12" y1="2" x2="12" y2="22" stroke-dasharray="2 2"/>
+                        </svg>
+                    </div>
+                    <div class="logo-text">
+                        <span class="logo-main">DevCraft</span>
+                        <span class="logo-sub">系統開發工作室</span>
+                    </div>
+                </a>
+                
+                <button class="nav-toggle" id="navToggle" aria-label="開啟選單">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#services" class="nav-link">服務項目</a></li>
+                    <li><a href="#projects" class="nav-link">專案案例</a></li>
+                    <li><a href="#process" class="nav-link">合作流程</a></li>
+                    <li><a href="#about" class="nav-link">關於我</a></li>
+                    <li><a href="#faq" class="nav-link">常見問題</a></li>
+                    <li><a href="#contact" class="nav-link nav-cta">立即諮詢</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Banner Slider -->
+    <section class="hero-slider" id="hero">
+        <div class="slider-container">
+            <div class="slides">
+                <!-- Slide 1 -->
+                <div class="slide active" data-slide="1">
+                    <div class="slide-bg slide-bg-1"></div>
+                    <div class="slide-content">
+                        <div class="container">
+                            <div class="slide-text">
+                                <span class="slide-tag">企業數位化首選</span>
+                                <h1>把繁瑣的工作<br><span class="text-accent">交給系統處理</span></h1>
+                                <p>專為中小企業與製造業打造客製化系統<br>爬蟲、自動化、戰情儀表板，一站搞定</p>
+                                <div class="slide-btns">
+                                    <a href="#contact" class="btn btn-primary">免費諮詢</a>
+                                    <a href="#projects" class="btn btn-outline">查看案例</a>
+                                </div>
+                            </div>
+                            <div class="slide-image">
+                                <div class="hero-graphic">
+                                    <div class="graphic-circle"></div>
+                                    <div class="graphic-code">
+                                        <span>&lt;/&gt;</span>
+                                    </div>
+                                    <div class="graphic-dots">
+                                        <span></span><span></span><span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="slide" data-slide="2">
+                    <div class="slide-bg slide-bg-2"></div>
+                    <div class="slide-content">
+                        <div class="container">
+                            <div class="slide-text">
+                                <span class="slide-tag">告別 Excel 地獄</span>
+                                <h1>內部系統<br><span class="text-accent">量身打造</span></h1>
+                                <p>報表自動產出、流程自動化、多人協作<br>讓你專心做生意，重複的事交給程式</p>
+                                <div class="slide-btns">
+                                    <a href="#services" class="btn btn-primary">了解服務</a>
+                                    <a href="#contact" class="btn btn-outline">立即洽談</a>
+                                </div>
+                            </div>
+                            <div class="slide-image">
+                                <div class="hero-graphic graphic-alt">
+                                    <div class="graphic-chart">
+                                        <div class="bar" style="height: 40%"></div>
+                                        <div class="bar" style="height: 70%"></div>
+                                        <div class="bar" style="height: 55%"></div>
+                                        <div class="bar" style="height: 85%"></div>
+                                        <div class="bar" style="height: 60%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="slide" data-slide="3">
+                    <div class="slide-bg slide-bg-3"></div>
+                    <div class="slide-content">
+                        <div class="container">
+                            <div class="slide-text">
+                                <span class="slide-tag">數據驅動決策</span>
+                                <h1>爬蟲監控<br><span class="text-accent">即時掌握</span></h1>
+                                <p>競品價格追蹤、庫存監控、資料自動抓取<br>市場變化即時通知，搶得商機先機</p>
+                                <div class="slide-btns">
+                                    <a href="#contact" class="btn btn-primary">諮詢報價</a>
+                                    <a href="#projects" class="btn btn-outline">成功案例</a>
+                                </div>
+                            </div>
+                            <div class="slide-image">
+                                <div class="hero-graphic graphic-crawler">
+                                    <div class="crawler-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                            <circle cx="12" cy="12" r="3"/>
+                                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slider Controls -->
+            <div class="slider-dots">
+                <button class="dot active" data-slide="1"></button>
+                <button class="dot" data-slide="2"></button>
+                <button class="dot" data-slide="3"></button>
+            </div>
+            <button class="slider-arrow prev" aria-label="上一張">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+            <button class="slider-arrow next" aria-label="下一張">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 18l6-6-6-6"/>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M9 12l2 2 4-4"/>
+                            <path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" data-count="50">0</span>
+                        <span class="stat-label">專案交付</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" data-count="80">0</span><span class="stat-suffix">%</span>
+                        <span class="stat-label">效率提升</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 8v4l3 3"/>
+                            <circle cx="12" cy="12" r="9"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" data-count="5">0</span><span class="stat-suffix">年+</span>
+                        <span class="stat-label">開發經驗</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 9V5a3 3 0 00-6 0v4"/>
+                            <path d="M5 9h14a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2v-9a2 2 0 012-2z"/>
+                            <circle cx="12" cy="15" r="1"/>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-number" data-count="100">0</span><span class="stat-suffix">%</span>
+                        <span class="stat-label">客戶滿意</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">OUR SERVICES</span>
+                <h2 class="section-title">服務項目</h2>
+                <p class="section-desc">不只是寫程式，而是理解你的業務痛點，用技術幫你省時間、省人力、減少出錯</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service 1 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/>
+                            <path d="M8 21h8M12 17v4"/>
+                            <path d="M7 8l3 3-3 3M12 14h4"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">客製化系統開發</h3>
+                    <p class="service-desc">
+                        市面上的軟體不符合需求？我幫你從零打造專屬系統，桌面應用或網頁系統，完全依照你的工作流程設計。
+                    </p>
+                    <ul class="service-list">
+                        <li>桌面應用程式 (GUI)</li>
+                        <li>網頁系統 (Web App)</li>
+                        <li>跨平台解決方案</li>
+                    </ul>
+                    <a href="#contact" class="service-link">
+                        了解更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">企業內部管理系統</h3>
+                    <p class="service-desc">
+                        還在用 Excel 管理所有事情？建立專屬管理後台，自動產生報表、追蹤進度、管理權限，告別混亂的檔案地獄。
+                    </p>
+                    <ul class="service-list">
+                        <li>自動化報表產生</li>
+                        <li>進度與庫存追蹤</li>
+                        <li>多人協作權限管理</li>
+                    </ul>
+                    <a href="#contact" class="service-link">
+                        了解更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">爬蟲與資料監控</h3>
+                    <p class="service-desc">
+                        需要追蹤競爭對手價格？監控庫存變化？自動抓取網站資料？建立穩定的爬蟲系統，資料變化即時通知。
+                    </p>
+                    <ul class="service-list">
+                        <li>價格與庫存監控</li>
+                        <li>競品資訊追蹤</li>
+                        <li>即時 LINE 通知</li>
+                    </ul>
+                    <a href="#contact" class="service-link">
+                        了解更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18"/>
+                            <path d="M9 21V9"/>
+                            <circle cx="16" cy="15" r="2"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">戰情室 / Dashboard</h3>
+                    <p class="service-desc">
+                        讓關鍵數據一目了然！打造即時更新的儀表板，業績、產能、訂單狀態，全部視覺化呈現，幫助快速決策。
+                    </p>
+                    <ul class="service-list">
+                        <li>即時數據視覺化</li>
+                        <li>多維度報表分析</li>
+                        <li>手機隨時查看</li>
+                    </ul>
+                    <a href="#contact" class="service-link">
+                        了解更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                            <path d="M14 2v6h6"/>
+                            <path d="M8 13h8M8 17h8M8 9h2"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">工廠與 Excel 整合</h3>
+                    <p class="service-desc">
+                        生產線資料散落各處？整合現有的 Excel 報表，建立自動化流程，減少人工輸入錯誤，資料即時同步。
+                    </p>
+                    <ul class="service-list">
+                        <li>Excel 自動化處理</li>
+                        <li>生產數據整合</li>
+                        <li>報表自動產出</li>
+                    </ul>
+                    <a href="#contact" class="service-link">
+                        了解更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4z"/>
+                            <circle cx="17" cy="17" r="3"/>
+                            <path d="M14 14l3 3"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">API 串接整合</h3>
+                    <p class="service-desc">
+                        需要串接金流、物流、ERP 或其他第三方平台？打通系統間的資料流，讓不同平台的資訊自動同步。
+                    </p>
+                    <ul class="service-list">
+                        <li>第三方平台串接</li>
+                        <li>資料自動同步</li>
+                        <li>異常監控通知</li>
+                    </ul>
+                    <a href="#contact" class="service-link">
+                        了解更多
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">SUCCESS CASES</span>
+                <h2 class="section-title">專案案例</h2>
+                <p class="section-desc">每個專案都是為客戶量身打造的解決方案，以下是部分成功交付的案例</p>
+            </div>
+
+            <!-- Project Tabs -->
+            <div class="project-tabs">
+                <button class="tab-btn active" data-filter="all">全部案例</button>
+                <button class="tab-btn" data-filter="automation">自動化系統</button>
+                <button class="tab-btn" data-filter="crawler">爬蟲監控</button>
+                <button class="tab-btn" data-filter="dashboard">數據儀表板</button>
+                <button class="tab-btn" data-filter="integration">系統整合</button>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <article class="project-card" data-category="automation integration">
+                    <div class="project-badge">
+                        <span class="badge-industry">製造業</span>
+                        <span class="badge-type">自動化</span>
+                    </div>
+                    <h3 class="project-title">生產排程自動化系統</h3>
+                    <div class="project-body">
+                        <div class="project-section">
+                            <h4>📋 客戶需求</h4>
+                            <p>某金屬加工廠原本使用 Excel 管理生產排程，每天需要花費 2-3 小時人工調度，且經常出現撞單、漏單的情況。</p>
+                        </div>
+                        <div class="project-section">
+                            <h4>💡 解決方案</h4>
+                            <p>開發桌面應用程式，自動讀取訂單資料，依據機台產能與交期智慧排程，並即時顯示甘特圖，支援拖曳調整。</p>
+                        </div>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>Tkinter</span>
+                            <span>SQLite</span>
+                            <span>Excel</span>
+                        </div>
+                    </div>
+                    <div class="project-results">
+                        <div class="result">
+                            <span class="result-value">90%</span>
+                            <span class="result-label">排程時間縮短</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">0 件</span>
+                            <span class="result-label">撞單事件</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">2hr/日</span>
+                            <span class="result-label">人力節省</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card" data-category="crawler automation">
+                    <div class="project-badge">
+                        <span class="badge-industry">電商零售</span>
+                        <span class="badge-type">爬蟲</span>
+                    </div>
+                    <h3 class="project-title">競品價格監控系統</h3>
+                    <div class="project-body">
+                        <div class="project-section">
+                            <h4>📋 客戶需求</h4>
+                            <p>某 3C 配件經銷商需要追蹤 5 個電商平台上 200+ 競品的價格變化，原本靠人工每天查看，耗時且容易遺漏。</p>
+                        </div>
+                        <div class="project-section">
+                            <h4>💡 解決方案</h4>
+                            <p>建立自動化爬蟲系統，每日定時抓取各平台價格，偵測到價格變動時透過 LINE 即時通知，並產出每週價格趨勢報表。</p>
+                        </div>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>Selenium</span>
+                            <span>LINE API</span>
+                            <span>排程</span>
+                        </div>
+                    </div>
+                    <div class="project-results">
+                        <div class="result">
+                            <span class="result-value">100%</span>
+                            <span class="result-label">監控覆蓋率</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">即時</span>
+                            <span class="result-label">價格通知</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">15%</span>
+                            <span class="result-label">毛利提升</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card" data-category="dashboard">
+                    <div class="project-badge">
+                        <span class="badge-industry">餐飲連鎖</span>
+                        <span class="badge-type">儀表板</span>
+                    </div>
+                    <h3 class="project-title">多店營運戰情室</h3>
+                    <div class="project-body">
+                        <div class="project-section">
+                            <h4>📋 客戶需求</h4>
+                            <p>某連鎖餐飲品牌有 8 間分店，老闆需要即時掌握各店營收、來客數、熱銷品項，原本要等會計月底整理才能看到數據。</p>
+                        </div>
+                        <div class="project-section">
+                            <h4>💡 解決方案</h4>
+                            <p>串接 POS 系統 API，建立即時更新的 Web 儀表板，呈現各店營收比較、時段分析、品項排行，支援手機隨時查看。</p>
+                        </div>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>Flask</span>
+                            <span>Chart.js</span>
+                            <span>API</span>
+                        </div>
+                    </div>
+                    <div class="project-results">
+                        <div class="result">
+                            <span class="result-value">即時</span>
+                            <span class="result-label">數據更新</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">8 店</span>
+                            <span class="result-label">統一管理</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">30天→0</span>
+                            <span class="result-label">報表等待</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="project-card" data-category="integration automation">
+                    <div class="project-badge">
+                        <span class="badge-industry">貿易物流</span>
+                        <span class="badge-type">整合</span>
+                    </div>
+                    <h3 class="project-title">出貨單自動化系統</h3>
+                    <div class="project-body">
+                        <div class="project-section">
+                            <h4>📋 客戶需求</h4>
+                            <p>某貿易公司每天要處理 50+ 張出貨單，業務需要從 ERP 抄寫資料到 Excel 模板，再列印給倉庫，經常抄錯或漏單。</p>
+                        </div>
+                        <div class="project-section">
+                            <h4>💡 解決方案</h4>
+                            <p>開發桌面工具，一鍵從 ERP 匯出資料，自動填入出貨單模板並批次列印，同時建立出貨記錄資料庫，方便日後查詢追蹤。</p>
+                        </div>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>PyQt</span>
+                            <span>openpyxl</span>
+                            <span>列印</span>
+                        </div>
+                    </div>
+                    <div class="project-results">
+                        <div class="result">
+                            <span class="result-value">95%</span>
+                            <span class="result-label">錯誤率降低</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">3hr/日</span>
+                            <span class="result-label">時間節省</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">1 鍵</span>
+                            <span class="result-label">完成作業</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 5 -->
+                <article class="project-card" data-category="crawler dashboard">
+                    <div class="project-badge">
+                        <span class="badge-industry">不動產</span>
+                        <span class="badge-type">爬蟲+儀表板</span>
+                    </div>
+                    <h3 class="project-title">房市資訊聚合平台</h3>
+                    <div class="project-body">
+                        <div class="project-section">
+                            <h4>📋 客戶需求</h4>
+                            <p>某房仲團隊需要追蹤特定區域的新物件上架、價格變動，原本要每天巡 4-5 個網站，非常耗時且容易錯過好物件。</p>
+                        </div>
+                        <div class="project-section">
+                            <h4>💡 解決方案</h4>
+                            <p>建立爬蟲系統整合多個房屋平台資訊，新物件上架即時推播，並提供價格歷史、區域行情分析的儀表板介面。</p>
+                        </div>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>BeautifulSoup</span>
+                            <span>Dashboard</span>
+                            <span>LINE</span>
+                        </div>
+                    </div>
+                    <div class="project-results">
+                        <div class="result">
+                            <span class="result-value">4 平台</span>
+                            <span class="result-label">資訊整合</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">30min</span>
+                            <span class="result-label">新物件通知</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">2 倍</span>
+                            <span class="result-label">成交效率</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 6 -->
+                <article class="project-card" data-category="automation integration">
+                    <div class="project-badge">
+                        <span class="badge-industry">傳統製造</span>
+                        <span class="badge-type">自動化</span>
+                    </div>
+                    <h3 class="project-title">品檢報告自動產出系統</h3>
+                    <div class="project-body">
+                        <div class="project-section">
+                            <h4>📋 客戶需求</h4>
+                            <p>某塑膠射出廠每批出貨都需要產出品檢報告，品管人員要手動填寫 Excel 模板，一份報告要花 20 分鐘，且格式經常不一致。</p>
+                        </div>
+                        <div class="project-section">
+                            <h4>💡 解決方案</h4>
+                            <p>開發品檢資料輸入介面，連接量測儀器自動讀取數值，一鍵產出標準化 PDF 報告，同時建立品檢資料庫供日後追溯。</p>
+                        </div>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>Tkinter</span>
+                            <span>ReportLab</span>
+                            <span>儀器串接</span>
+                        </div>
+                    </div>
+                    <div class="project-results">
+                        <div class="result">
+                            <span class="result-value">85%</span>
+                            <span class="result-label">時間節省</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">100%</span>
+                            <span class="result-label">格式標準化</span>
+                        </div>
+                        <div class="result">
+                            <span class="result-value">可追溯</span>
+                            <span class="result-label">歷史紀錄</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="projects-more">
+                <p>以上僅為部分案例，更多專案歡迎洽談了解</p>
+                <a href="#contact" class="btn btn-primary">討論你的專案需求</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">HOW WE WORK</span>
+                <h2 class="section-title">合作流程</h2>
+                <p class="section-desc">從需求討論到系統上線，全程透明溝通，讓你清楚知道每個階段在做什麼</p>
+            </div>
+
+            <div class="process-timeline">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                            </svg>
+                        </div>
+                        <h3>需求訪談</h3>
+                        <p>透過 LINE 或視訊會議，了解你目前的工作流程與痛點。不用準備專業文件，用你習慣的方式說明就好。</p>
+                        <span class="step-time">約 30-60 分鐘</span>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+                            </svg>
+                        </div>
+                        <h3>方案規劃</h3>
+                        <p>根據訪談內容，提供解決方案建議書，包含功能規劃、技術選擇、時程預估與報價明細。</p>
+                        <span class="step-time">提供書面報價單</span>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <polyline points="16,18 22,12 16,6"/>
+                                <polyline points="8,6 2,12 8,18"/>
+                            </svg>
+                        </div>
+                        <h3>開發執行</h3>
+                        <p>確認合作後開始開發，過程中會定期回報進度，重要功能完成時會先讓你試用，確保方向正確。</p>
+                        <span class="step-time">每週進度更新</span>
+                    </div>
+                </div>
+
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <div class="step-card">
+                        <div class="step-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                <polyline points="22,4 12,14.01 9,11.01"/>
+                            </svg>
+                        </div>
+                        <h3>交付上線</h3>
+                        <p>系統完成後提供完整操作說明，協助安裝部署。上線後提供保固期間的問題修復與技術支援。</p>
+                        <span class="step-time">含教學與保固</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <span class="section-tag">ABOUT ME</span>
+                    <h2 class="section-title">關於我</h2>
+                    <p class="about-intro">
+                        我是一名專注於<strong>企業系統開發</strong>的工程師，擅長將複雜的業務流程轉化為直覺好用的數位工具。
+                    </p>
+                    <p class="about-text">
+                        過去幾年，我協助過製造業、零售業、物流業等不同產業的客戶，解決他們在日常營運中遇到的效率瓶頸。我相信好的系統不只是技術的展現，更是對業務需求的深入理解。
+                    </p>
+                    <blockquote class="about-quote">
+                        「我的目標不是寫出最炫的程式，<br>而是做出你真正用得上的工具。」
+                    </blockquote>
+                </div>
+                <div class="about-skills">
+                    <h3>技術專長</h3>
+                    <div class="skills-list">
+                        <div class="skill-group">
+                            <h4>程式語言</h4>
+                            <div class="skill-tags">
+                                <span>Python</span>
+                                <span>JavaScript</span>
+                                <span>SQL</span>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <h4>桌面應用</h4>
+                            <div class="skill-tags">
+                                <span>Tkinter</span>
+                                <span>PyQt</span>
+                                <span>CustomTkinter</span>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <h4>Web 開發</h4>
+                            <div class="skill-tags">
+                                <span>Flask</span>
+                                <span>FastAPI</span>
+                                <span>HTML/CSS</span>
+                            </div>
+                        </div>
+                        <div class="skill-group">
+                            <h4>資料處理</h4>
+                            <div class="skill-tags">
+                                <span>Pandas</span>
+                                <span>Excel 自動化</span>
+                                <span>爬蟲技術</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">FAQ</span>
+                <h2 class="section-title">常見問題</h2>
+                <p class="section-desc">關於合作的常見疑問，這裡一次解答</p>
+            </div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q. 專案報價怎麼算？</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>報價會根據專案的功能複雜度、開發時程和技術需求來評估。一般小型工具約 2-5 萬，中型系統約 5-15 萬，大型專案則需個別評估。初步諮詢完全免費，我會在了解需求後提供詳細報價單。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q. 開發時間大概要多久？</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>視專案規模而定。簡單的自動化工具約 1-2 週，中型管理系統約 1-2 個月，較複雜的專案可能需要 2-3 個月。我會在報價時提供預估時程，並在開發過程中保持進度透明。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q. 我不懂技術，怎麼說明需求？</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>完全不用擔心！你只需要描述目前工作上遇到的問題和期望的結果，我會協助你釐清需求並轉化為技術方案。很多客戶也是非技術背景，只要把你的痛點告訴我就好。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q. 交付後有保固嗎？</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>所有專案都提供 1-3 個月的免費保固期（視專案規模），期間若發現程式問題會免費修復。保固期後如需維護或新增功能，可另外討論維護方案。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Q. 可以先做一個小功能試試看嗎？</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>可以的！如果你不確定效果，我們可以先從一個核心功能開始，確認符合預期後再擴展其他功能。這樣可以降低風險，也讓你更了解我的開發品質和溝通方式。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">CONTACT</span>
+                <h2 class="section-title">立即諮詢</h2>
+                <p class="section-desc">無論是明確的需求還是模糊的想法，都歡迎找我聊聊，初步諮詢完全免費</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-card contact-line">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                            </svg>
+                        </div>
+                        <div class="contact-text">
+                            <h3>LINE 即時諮詢</h3>
+                            <p>最快的聯繫方式</p>
+                            <span class="contact-value">@devcraft</span>
+                        </div>
+                        <span class="recommend-badge">推薦</span>
+                    </div>
+
+                    <div class="contact-card contact-email">
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="2" y="4" width="20" height="16" rx="2"/>
+                                <path d="M22 6l-10 7L2 6"/>
+                            </svg>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email 聯繫</h3>
+                            <p>詳細說明需求</p>
+                            <span class="contact-value">contact@devcraft.studio</span>
+                        </div>
+                    </div>
+
+                    <div class="contact-note">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 16v-4M12 8h.01"/>
+                        </svg>
+                        <p>通常在 <strong>2 小時內</strong>回覆，初步諮詢<strong>完全免費</strong></p>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form class="contact-form" id="contactForm">
+                        <h3>留下你的需求</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">稱呼 <span class="required">*</span></label>
+                                <input type="text" id="name" name="name" placeholder="你的稱呼" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="company">公司名稱</label>
+                                <input type="text" id="company" name="company" placeholder="公司或店名（選填）">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact">聯絡方式 <span class="required">*</span></label>
+                            <input type="text" id="contact" name="contact" placeholder="LINE ID / Email / 電話" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="service">需求類型 <span class="required">*</span></label>
+                            <select id="service" name="service" required>
+                                <option value="">請選擇服務類型</option>
+                                <option value="custom">客製化系統開發</option>
+                                <option value="internal">企業內部管理系統</option>
+                                <option value="crawler">爬蟲與資料監控</option>
+                                <option value="dashboard">戰情室 / Dashboard</option>
+                                <option value="integration">系統整合 / API 串接</option>
+                                <option value="other">其他需求</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">需求描述 <span class="required">*</span></label>
+                            <textarea id="message" name="message" rows="4" placeholder="簡單描述你想解決的問題或想做的系統..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            送出諮詢
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                        <p class="form-note">送出後我會在 1-2 個工作天內與你聯繫</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <div class="logo-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16,18 22,12 16,6"/>
+                                <polyline points="8,6 2,12 8,18"/>
+                            </svg>
+                        </div>
+                        <span>DevCraft</span>
+                    </a>
+                    <p class="footer-tagline">用程式解決真實問題</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>服務項目</h4>
+                        <ul>
+                            <li><a href="#services">客製化系統開發</a></li>
+                            <li><a href="#services">企業內部系統</a></li>
+                            <li><a href="#services">爬蟲與資料監控</a></li>
+                            <li><a href="#services">戰情室儀表板</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>關於</h4>
+                        <ul>
+                            <li><a href="#projects">專案案例</a></li>
+                            <li><a href="#process">合作流程</a></li>
+                            <li><a href="#about">關於我</a></li>
+                            <li><a href="#faq">常見問題</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>聯絡方式</h4>
+                        <ul>
+                            <li><a href="#">LINE: @devcraft</a></li>
+                            <li><a href="mailto:contact@devcraft.studio">contact@devcraft.studio</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DevCraft 系統開發工作室. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fixed LINE Button -->
+    <a href="#" class="line-float" aria-label="LINE 諮詢">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+        </svg>
+        <span>LINE 諮詢</span>
+    </a>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="回到頂端">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 15l-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <script src="main.js"></script>
+</body>
+</html>
