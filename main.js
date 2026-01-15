@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     FAQ.init();
     ContactForm.init();
     BackToTop.init();
+    LineButton.init();
 });
 
 /**
@@ -352,6 +353,135 @@ const ContactForm = {
             toast.classList.remove('show');
             setTimeout(() => toast.remove(), 300);
         }, 4000);
+    }
+};
+
+/**
+ * LINE Button Module
+ */
+const LineButton = {
+    init() {
+        this.lineId = '@442fjdqq';
+        this.lineAppUrl = `line://ti/p/${this.lineId}`;
+        this.lineWebUrl = `https://line.me/ti/p/${this.lineId}`;
+        
+        // 綁定所有 LINE 相關連結
+        document.querySelectorAll('.line-float, .contact-line, a[href*="line.me"]').forEach(el => {
+            el.addEventListener('click', (e) => this.handleClick(e));
+        });
+    },
+    
+    handleClick(e) {
+        e.preventDefault();
+        
+        if (this.isMobile()) {
+            // 手機：直接開啟 LINE app
+            this.openLineApp();
+        } else {
+            // 電腦：嘗試開啟 LINE 桌面版，失敗則滾動到表單
+            this.tryOpenLineDesktop();
+        }
+    },
+    
+    isMobile() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    },
+    
+    openLineApp() {
+        // 嘗試開啟 LINE app
+        const start = Date.now();
+        
+        // 先嘗試 app scheme
+        window.location.href = this.lineAppUrl;
+        
+        // 如果 2.5 秒後還在這個頁面，表示沒有安裝 LINE app，跳轉到 LINE 網頁
+        setTimeout(() => {
+            if (Date.now() - start < 3000) {
+                window.location.href = this.lineWebUrl;
+            }
+        }, 2500);
+    },
+    
+    tryOpenLineDesktop() {
+        // 嘗試開啟 LINE 桌面版
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
+        
+        const start = Date.now();
+        let opened = false;
+        
+        // 監聽視窗失焦，表示成功開啟了外部應用
+        const handleBlur = () => {
+            opened = true;
+            cleanup();
+        };
+        
+        const cleanup = () => {
+            window.removeEventListener('blur', handleBlur);
+            if (iframe.parentNode) {
+                iframe.parentNode.removeChild(iframe);
+            }
+        };
+        
+        window.addEventListener('blur', handleBlur);
+        
+        // 嘗試用 iframe 開啟 LINE
+        try {
+            iframe.contentWindow.location.href = this.lineAppUrl;
+        } catch (e) {
+            // 忽略跨域錯誤
+        }
+        
+        // 1.5 秒後檢查是否成功開啟
+        setTimeout(() => {
+            cleanup();
+            
+            if (!opened) {
+                // 沒有開啟 LINE，滾動到表單區域
+                this.scrollToForm();
+                this.showToast('請透過下方表單聯繫，或手機掃描 QR Code 加入 LINE');
+            }
+        }, 1500);
+    },
+    
+    scrollToForm() {
+        const contactSection = document.getElementById('contact');
+        const form = document.getElementById('contactForm');
+        
+        if (form) {
+            const headerOffset = 100;
+            const elementPosition = form.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+            
+            // 聚焦到第一個輸入欄位
+            setTimeout(() => {
+                const firstInput = form.querySelector('input');
+                if (firstInput) firstInput.focus();
+            }, 800);
+        }
+    },
+    
+    showToast(message) {
+        const existingToast = document.querySelector('.toast');
+        if (existingToast) existingToast.remove();
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast info';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => toast.classList.add('show'), 10);
+        
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => toast.remove(), 300);
+        }, 5000);
     }
 };
 
