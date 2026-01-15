@@ -1517,6 +1517,10 @@ ul, ol {
     border-left: 4px solid #e53e3e;
 }
 
+.toast.info {
+    border-left: 4px solid var(--accent-primary);
+}
+
 /* ===================================
    Mobile Responsive
    =================================== */
