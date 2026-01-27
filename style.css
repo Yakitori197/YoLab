@@ -1697,3 +1697,165 @@ ul, ol {
         border-bottom: none;
     }
 }
+
+/* ===================================
+   Contact Cards Row - 左右對稱卡片
+   =================================== */
+.contact-cards-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.contact-card-large {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-card-large:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-primary);
+}
+
+.contact-card-large .card-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.contact-card-large .card-icon svg {
+    width: 40px;
+    height: 40px;
+}
+
+.contact-line-large .card-icon {
+    background: linear-gradient(135deg, #00B900 0%, #00D900 100%);
+}
+
+.contact-line-large .card-icon svg {
+    fill: white;
+}
+
+.contact-line-large:hover {
+    border-color: var(--line-green);
+}
+
+.contact-form-large .card-icon {
+    background: linear-gradient(135deg, var(--accent-primary) 0%, #0088ff 100%);
+}
+
+.contact-form-large .card-icon svg {
+    stroke: white;
+    fill: none;
+}
+
+.contact-form-large:hover {
+    border-color: var(--accent-primary);
+}
+
+.contact-card-large h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text-primary);
+}
+
+.contact-card-large p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.contact-card-large .card-value {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+.contact-line-large .card-value {
+    color: var(--line-green);
+}
+
+.contact-card-large .card-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--line-green);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+}
+
+.contact-footer-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-footer-note svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--accent-primary);
+    flex-shrink: 0;
+}
+
+.contact-footer-note p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* RWD for Contact Cards */
+@media (max-width: 768px) {
+    .contact-cards-row {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .contact-card-large {
+        padding: 2rem 1.5rem;
+    }
+    
+    .contact-card-large .card-icon {
+        width: 64px;
+        height: 64px;
+    }
+    
+    .contact-card-large .card-icon svg {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .contact-card-large h3 {
+        font-size: 1.25rem;
+    }
+}
