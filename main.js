@@ -1,556 +1,338 @@
-/**
- * DevCraft Studio - Main JavaScript
- * 網站互動功能
- */
+/* ==========================================================================
+   YoLab 官方網站 — 互動腳本
+   原生 JavaScript,無相依套件。所有動畫尊重 prefers-reduced-motion。
+   ========================================================================== */
+(function () {
+    "use strict";
 
-document.addEventListener('DOMContentLoaded', () => {
-    Navigation.init();
-    HeroSlider.init();
-    CounterAnimation.init();
-    ProjectFilter.init();
-    FAQ.init();
-    ContactForm.init();
-    BackToTop.init();
-    LineButton.init();
-});
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var $ = function (sel, root) { return (root || document).querySelector(sel); };
+    var $$ = function (sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); };
 
-/**
- * Navigation Module
- */
-const Navigation = {
-    init() {
-        this.navbar = document.getElementById('navbar');
-        this.navToggle = document.getElementById('navToggle');
-        this.navMenu = document.getElementById('navMenu');
-        this.navLinks = document.querySelectorAll('.nav-link');
-        
-        this.bindEvents();
-    },
-    
-    bindEvents() {
-        // Mobile menu toggle
-        this.navToggle.addEventListener('click', () => this.toggleMenu());
-        
-        // Close menu when clicking links
-        this.navLinks.forEach(link => {
-            link.addEventListener('click', () => this.closeMenu());
+    /* ---------- 深色 / 淺色模式 ---------- */
+    (function theme() {
+        var toggle = $("#themeToggle");
+        if (!toggle) return;
+
+        function current() {
+            var set = document.documentElement.getAttribute("data-theme");
+            if (set) return set;
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+
+        toggle.addEventListener("click", function () {
+            var next = current() === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", next);
+            try { localStorage.setItem("yolab-theme", next); } catch (e) {}
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute("content", next === "dark" ? "#080a14" : "#0066cc");
         });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!this.navMenu.contains(e.target) && !this.navToggle.contains(e.target)) {
-                this.closeMenu();
-            }
-        });
-    },
-    
-    toggleMenu() {
-        this.navToggle.classList.toggle('active');
-        this.navMenu.classList.toggle('active');
-        document.body.style.overflow = this.navMenu.classList.contains('active') ? 'hidden' : '';
-    },
-    
-    closeMenu() {
-        this.navToggle.classList.remove('active');
-        this.navMenu.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-};
+    })();
 
-/**
- * Hero Slider Module
- */
-const HeroSlider = {
-    init() {
-        this.slides = document.querySelectorAll('.slide');
-        this.dots = document.querySelectorAll('.dot');
-        this.prevBtn = document.querySelector('.slider-arrow.prev');
-        this.nextBtn = document.querySelector('.slider-arrow.next');
-        this.currentSlide = 1;
-        this.totalSlides = this.slides.length;
-        this.autoPlayInterval = null;
-        
-        if (this.slides.length === 0) return;
-        
-        this.bindEvents();
-        this.startAutoPlay();
-    },
-    
-    bindEvents() {
-        // Dot navigation
-        this.dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                this.goToSlide(parseInt(dot.dataset.slide));
+    /* ---------- 導覽列:捲動樣式、行動版選單、目前區塊 ---------- */
+    (function nav() {
+        var navbar = $("#navbar");
+        var burger = $("#hamburger");
+        var links = $("#navLinks");
+
+        if (navbar) {
+            var onScroll = function () {
+                navbar.classList.toggle("is-scrolled", window.scrollY > 8);
+            };
+            onScroll();
+            window.addEventListener("scroll", onScroll, { passive: true });
+        }
+
+        if (burger && links) {
+            burger.addEventListener("click", function () {
+                var open = links.classList.toggle("is-open");
+                burger.classList.toggle("is-open", open);
+                burger.setAttribute("aria-expanded", open ? "true" : "false");
+                burger.setAttribute("aria-label", open ? "關閉選單" : "開啟選單");
             });
-        });
-        
-        // Arrow navigation
-        if (this.prevBtn) {
-            this.prevBtn.addEventListener('click', () => this.prevSlide());
-        }
-        if (this.nextBtn) {
-            this.nextBtn.addEventListener('click', () => this.nextSlide());
-        }
-        
-        // Pause on hover
-        const sliderContainer = document.querySelector('.slider-container');
-        if (sliderContainer) {
-            sliderContainer.addEventListener('mouseenter', () => this.stopAutoPlay());
-            sliderContainer.addEventListener('mouseleave', () => this.startAutoPlay());
-        }
-    },
-    
-    goToSlide(slideNum) {
-        // Remove active class from current
-        this.slides.forEach(slide => slide.classList.remove('active'));
-        this.dots.forEach(dot => dot.classList.remove('active'));
-        
-        // Add active class to new slide
-        const newSlide = document.querySelector(`.slide[data-slide="${slideNum}"]`);
-        const newDot = document.querySelector(`.dot[data-slide="${slideNum}"]`);
-        
-        if (newSlide) newSlide.classList.add('active');
-        if (newDot) newDot.classList.add('active');
-        
-        this.currentSlide = slideNum;
-    },
-    
-    nextSlide() {
-        let next = this.currentSlide + 1;
-        if (next > this.totalSlides) next = 1;
-        this.goToSlide(next);
-    },
-    
-    prevSlide() {
-        let prev = this.currentSlide - 1;
-        if (prev < 1) prev = this.totalSlides;
-        this.goToSlide(prev);
-    },
-    
-    startAutoPlay() {
-        this.autoPlayInterval = setInterval(() => this.nextSlide(), 5000);
-    },
-    
-    stopAutoPlay() {
-        if (this.autoPlayInterval) {
-            clearInterval(this.autoPlayInterval);
-        }
-    }
-};
 
-/**
- * Counter Animation Module
- */
-const CounterAnimation = {
-    init() {
-        this.counters = document.querySelectorAll('[data-count]');
-        this.animated = false;
-        
-        if ('IntersectionObserver' in window) {
-            this.createObserver();
-        } else {
-            this.animateAll();
-        }
-    },
-    
-    createObserver() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !this.animated) {
-                    this.animated = true;
-                    this.animateAll();
+            $$("a", links).forEach(function (a) {
+                a.addEventListener("click", function () {
+                    links.classList.remove("is-open");
+                    burger.classList.remove("is-open");
+                    burger.setAttribute("aria-expanded", "false");
+                });
+            });
+
+            document.addEventListener("click", function (e) {
+                if (!links.classList.contains("is-open")) return;
+                if (links.contains(e.target) || burger.contains(e.target)) return;
+                links.classList.remove("is-open");
+                burger.classList.remove("is-open");
+                burger.setAttribute("aria-expanded", "false");
+            });
+
+            document.addEventListener("keydown", function (e) {
+                if (e.key === "Escape" && links.classList.contains("is-open")) {
+                    links.classList.remove("is-open");
+                    burger.classList.remove("is-open");
+                    burger.setAttribute("aria-expanded", "false");
+                    burger.focus();
                 }
             });
-        }, { threshold: 0.5 });
-        
-        const statsBar = document.querySelector('.stats-bar');
-        if (statsBar) observer.observe(statsBar);
-    },
-    
-    animateAll() {
-        this.counters.forEach(counter => {
-            this.animateCounter(counter);
-        });
-    },
-    
-    animateCounter(element) {
-        const target = parseInt(element.dataset.count);
-        const duration = 2000;
-        const start = 0;
-        const startTime = performance.now();
-        
-        const updateCounter = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easeProgress = 1 - Math.pow(1 - progress, 4);
-            const current = Math.floor(start + (target - start) * easeProgress);
-            
-            element.textContent = current;
-            
-            if (progress < 1) {
-                requestAnimationFrame(updateCounter);
-            } else {
-                element.textContent = target;
-            }
-        };
-        
-        requestAnimationFrame(updateCounter);
-    }
-};
+        }
 
-/**
- * Project Filter Module
- */
-const ProjectFilter = {
-    init() {
-        this.tabBtns = document.querySelectorAll('.tab-btn');
-        this.projectCards = document.querySelectorAll('.project-card');
-        
-        this.bindEvents();
-    },
-    
-    bindEvents() {
-        this.tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const filter = btn.dataset.filter;
-                this.setActiveTab(btn);
-                this.filterProjects(filter);
+        /* 捲到哪一區,導覽對應項目就亮起來 */
+        var navAnchors = $$('.nav-links > a[href^="#"]:not(.nav-cta)');
+        var sections = navAnchors
+            .map(function (a) { return document.getElementById(a.getAttribute("href").slice(1)); })
+            .filter(Boolean);
+
+        if (sections.length && "IntersectionObserver" in window) {
+            var spy = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    navAnchors.forEach(function (a) {
+                        a.classList.toggle("is-active", a.getAttribute("href") === "#" + entry.target.id);
+                    });
+                });
+            }, { rootMargin: "-45% 0px -50% 0px" });
+            sections.forEach(function (s) { spy.observe(s); });
+        }
+    })();
+
+    /* ---------- 跑馬燈:滑鼠移入暫停 ---------- */
+    (function marquee() {
+        $$("[data-marquee]").forEach(function (track) {
+            var zone = track.parentElement || track;
+            zone.addEventListener("mouseenter", function () { track.classList.add("is-paused"); });
+            zone.addEventListener("mouseleave", function () { track.classList.remove("is-paused"); });
+        });
+    })();
+
+    /* ---------- Hero:輪播 + 終端機打字 ---------- */
+    (function hero() {
+        var slides = $$(".hero-slide");
+        var dots = $$(".dot-btn");
+        if (!slides.length) return;
+
+        var index = 0;
+        var timer = null;
+        var INTERVAL = 5400;
+
+        function show(i) {
+            index = (i + slides.length) % slides.length;
+            slides.forEach(function (s, n) { s.classList.toggle("is-active", n === index); });
+            dots.forEach(function (d, n) {
+                d.classList.toggle("is-active", n === index);
+                d.setAttribute("aria-selected", n === index ? "true" : "false");
+            });
+            if (index === 0) typeTerminal();
+        }
+
+        function start() {
+            if (reduceMotion || timer) return;
+            timer = setInterval(function () { show(index + 1); }, INTERVAL);
+        }
+        function stop() { clearInterval(timer); timer = null; }
+
+        dots.forEach(function (d, n) {
+            d.addEventListener("click", function () { stop(); show(n); start(); });
+        });
+
+        var stage = $(".hero-stage");
+        if (stage) {
+            stage.addEventListener("mouseenter", stop);
+            stage.addEventListener("mouseleave", start);
+        }
+
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) { stop(); } else { start(); }
+        });
+
+        /* 終端機逐字輸出 */
+        var termLines = $$("#termBody .term-line");
+        var sources = termLines.map(function (el) { return el.textContent; });
+        var typeTimer = null;
+
+        termLines.forEach(function (el) {
+            var c = el.getAttribute("data-color");
+            if (c) el.style.color = c;
+        });
+
+        function typeTerminal() {
+            if (!termLines.length) return;
+            clearInterval(typeTimer);
+
+            if (reduceMotion) {
+                termLines.forEach(function (el, i) { el.textContent = sources[i]; });
+                return;
+            }
+
+            var total = sources.reduce(function (n, s) { return n + s.length; }, 0);
+            var shown = 0;
+            termLines.forEach(function (el) { el.textContent = " "; });
+
+            typeTimer = setInterval(function () {
+                shown += 2;
+                var rest = shown;
+                termLines.forEach(function (el, i) {
+                    var part = sources[i].slice(0, Math.max(0, rest));
+                    el.textContent = part || " ";
+                    rest -= sources[i].length;
+                });
+                if (shown >= total) clearInterval(typeTimer);
+            }, 26);
+        }
+
+        /* 首屏進入視野才開始跑,省電也讓動畫被看到 */
+        if ("IntersectionObserver" in window) {
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) { typeTerminal(); start(); }
+                    else { stop(); }
+                });
+            }, { threshold: 0.25 });
+            io.observe(stage || slides[0]);
+        } else {
+            typeTerminal();
+            start();
+        }
+    })();
+
+    /* ---------- 數據列:數字由 0 跑上去 ---------- */
+    (function counters() {
+        var nums = $$(".count");
+        if (!nums.length) return;
+
+        function run(el) {
+            var target = parseInt(el.getAttribute("data-count"), 10) || 0;
+            if (reduceMotion) { el.textContent = String(target); return; }
+
+            var duration = 1500;
+            var startTime = null;
+
+            function step(now) {
+                if (startTime === null) startTime = now;
+                var p = Math.min(1, (now - startTime) / duration);
+                var eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = String(Math.round(target * eased));
+                if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        if (!("IntersectionObserver" in window)) { nums.forEach(run); return; }
+
+        var io = new IntersectionObserver(function (entries, obs) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                run(e.target);
+                obs.unobserve(e.target);
+            });
+        }, { threshold: 0.6 });
+        nums.forEach(function (n) { io.observe(n); });
+    })();
+
+    /* ---------- 專案案例:分類篩選 ---------- */
+    (function cases() {
+        var tabs = $$(".case-tabs .tab");
+        var cards = $$(".case-grid .case");
+        var empty = $("#caseEmpty");
+        if (!tabs.length || !cards.length) return;
+
+        tabs.forEach(function (tab) {
+            tab.addEventListener("click", function () {
+                var filter = tab.getAttribute("data-filter");
+
+                tabs.forEach(function (t) {
+                    var on = t === tab;
+                    t.classList.toggle("is-active", on);
+                    t.setAttribute("aria-selected", on ? "true" : "false");
+                });
+
+                var visible = 0;
+                cards.forEach(function (card) {
+                    var cats = (card.getAttribute("data-category") || "").split(/\s+/);
+                    var show = filter === "all" || cats.indexOf(filter) !== -1;
+                    card.classList.toggle("is-hidden", !show);
+                    if (show) visible++;
+                });
+
+                if (empty) empty.hidden = visible !== 0;
             });
         });
-    },
-    
-    setActiveTab(activeBtn) {
-        this.tabBtns.forEach(btn => btn.classList.remove('active'));
-        activeBtn.classList.add('active');
-    },
-    
-    filterProjects(filter) {
-        this.projectCards.forEach(card => {
-            const categories = card.dataset.category || '';
-            
-            if (filter === 'all' || categories.includes(filter)) {
-                card.classList.remove('hidden');
-                card.style.animation = 'fadeIn 0.4s ease';
-            } else {
-                card.classList.add('hidden');
-            }
-        });
-    }
-};
+    })();
 
-/**
- * FAQ Accordion Module
- */
-const FAQ = {
-    init() {
-        this.faqItems = document.querySelectorAll('.faq-item');
-        
-        this.bindEvents();
-    },
-    
-    bindEvents() {
-        this.faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                this.toggleItem(item);
+    /* ---------- 常見問題:手風琴 ---------- */
+    (function faq() {
+        var items = $$(".faq-item");
+        if (!items.length) return;
+
+        items.forEach(function (item) {
+            var btn = $(".faq-q", item);
+            if (!btn) return;
+
+            btn.addEventListener("click", function () {
+                var willOpen = !item.classList.contains("is-open");
+
+                items.forEach(function (other) {
+                    other.classList.remove("is-open");
+                    var b = $(".faq-q", other);
+                    if (b) b.setAttribute("aria-expanded", "false");
+                });
+
+                if (willOpen) {
+                    item.classList.add("is-open");
+                    btn.setAttribute("aria-expanded", "true");
+                }
             });
         });
-    },
-    
-    toggleItem(item) {
-        const isActive = item.classList.contains('active');
-        
-        // Close all items
-        this.faqItems.forEach(i => i.classList.remove('active'));
-        
-        // Open clicked item if it was closed
-        if (!isActive) {
-            item.classList.add('active');
-        }
-    }
-};
+    })();
 
-/**
- * Contact Form Module
- */
-const ContactForm = {
-    init() {
-        this.form = document.getElementById('contactForm');
-        
-        if (this.form) {
-            this.bindEvents();
-        }
-    },
-    
-    bindEvents() {
-        this.form.addEventListener('submit', (e) => this.handleSubmit(e));
-    },
-    
-    handleSubmit(e) {
-        e.preventDefault();
-        
-        const formData = new FormData(this.form);
-        const data = Object.fromEntries(formData.entries());
-        
-        if (!this.validate(data)) {
+    /* ---------- 進場動畫 + 流程時間軸點亮 ---------- */
+    (function reveal() {
+        var targets = $$(".reveal");
+        var steps = $$(".timeline .step");
+
+        if (reduceMotion || !("IntersectionObserver" in window)) {
+            targets.forEach(function (el) { el.classList.add("is-in"); });
+            steps.forEach(function (el) { el.classList.add("is-on"); });
             return;
         }
-        
-        this.showSubmitting();
-        
-        // Simulate form submission
-        setTimeout(() => {
-            this.showSuccess();
-            this.form.reset();
-            console.log('Form submitted:', data);
-        }, 1500);
-    },
-    
-    validate(data) {
-        if (!data.name || !data.contact || !data.service || !data.message) {
-            this.showToast('請填寫所有必填欄位', 'error');
-            return false;
-        }
-        return true;
-    },
-    
-    showSubmitting() {
-        const btn = this.form.querySelector('button[type="submit"]');
-        btn.disabled = true;
-        btn.innerHTML = `
-            送出中...
-            <svg class="spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-            </svg>
-        `;
-    },
-    
-    showSuccess() {
-        const btn = this.form.querySelector('button[type="submit"]');
-        btn.disabled = false;
-        btn.innerHTML = `
-            送出諮詢
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
-            </svg>
-        `;
-        
-        this.showToast('感謝您的諮詢！我會盡快與您聯繫。', 'success');
-    },
-    
-    showToast(message, type = 'success') {
-        const existingToast = document.querySelector('.toast');
-        if (existingToast) existingToast.remove();
-        
-        const toast = document.createElement('div');
-        toast.className = `toast ${type}`;
-        toast.textContent = message;
-        document.body.appendChild(toast);
-        
-        setTimeout(() => toast.classList.add('show'), 10);
-        
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
-        }, 4000);
-    }
-};
 
-/**
- * LINE Button Module
- */
-const LineButton = {
-    init() {
-        this.lineId = '@442fjdqq';
-        this.lineAppUrl = `line://ti/p/${this.lineId}`;
-        this.lineWebUrl = `https://line.me/ti/p/${this.lineId}`;
-        
-        // 綁定所有 LINE 相關連結
-        document.querySelectorAll('.line-float, .contact-line, a[href*="line.me"]').forEach(el => {
-            el.addEventListener('click', (e) => this.handleClick(e));
-        });
-    },
-    
-    handleClick(e) {
-        e.preventDefault();
-        
-        if (this.isMobile()) {
-            // 手機：直接開啟 LINE app
-            this.openLineApp();
-        } else {
-            // 電腦：嘗試開啟 LINE 桌面版，失敗則滾動到表單
-            this.tryOpenLineDesktop();
-        }
-    },
-    
-    isMobile() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    },
-    
-    openLineApp() {
-        // 嘗試開啟 LINE app
-        const start = Date.now();
-        
-        // 先嘗試 app scheme
-        window.location.href = this.lineAppUrl;
-        
-        // 如果 2.5 秒後還在這個頁面，表示沒有安裝 LINE app，跳轉到 LINE 網頁
-        setTimeout(() => {
-            if (Date.now() - start < 3000) {
-                window.location.href = this.lineWebUrl;
-            }
-        }, 2500);
-    },
-    
-    tryOpenLineDesktop() {
-        // 嘗試開啟 LINE 桌面版
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        document.body.appendChild(iframe);
-        
-        const start = Date.now();
-        let opened = false;
-        
-        // 監聽視窗失焦，表示成功開啟了外部應用
-        const handleBlur = () => {
-            opened = true;
-            cleanup();
-        };
-        
-        const cleanup = () => {
-            window.removeEventListener('blur', handleBlur);
-            if (iframe.parentNode) {
-                iframe.parentNode.removeChild(iframe);
-            }
-        };
-        
-        window.addEventListener('blur', handleBlur);
-        
-        // 嘗試用 iframe 開啟 LINE
-        try {
-            iframe.contentWindow.location.href = this.lineAppUrl;
-        } catch (e) {
-            // 忽略跨域錯誤
-        }
-        
-        // 1.5 秒後檢查是否成功開啟
-        setTimeout(() => {
-            cleanup();
-            
-            if (!opened) {
-                // 沒有開啟 LINE，滾動到表單區域
-                this.scrollToForm();
-                this.showToast('請透過下方表單聯繫，或手機掃描 QR Code 加入 LINE');
-            }
-        }, 1500);
-    },
-    
-    scrollToForm() {
-        const contactSection = document.getElementById('contact');
-        const form = document.getElementById('contactForm');
-        
-        if (form) {
-            const headerOffset = 100;
-            const elementPosition = form.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
+        var io = new IntersectionObserver(function (entries, obs) {
+            entries.forEach(function (e) {
+                if (!e.isIntersecting) return;
+                e.target.classList.add("is-in");
+                obs.unobserve(e.target);
             });
-            
-            // 聚焦到第一個輸入欄位
-            setTimeout(() => {
-                const firstInput = form.querySelector('input');
-                if (firstInput) firstInput.focus();
-            }, 800);
-        }
-    },
-    
-    showToast(message) {
-        const existingToast = document.querySelector('.toast');
-        if (existingToast) existingToast.remove();
-        
-        const toast = document.createElement('div');
-        toast.className = 'toast info';
-        toast.textContent = message;
-        document.body.appendChild(toast);
-        
-        setTimeout(() => toast.classList.add('show'), 10);
-        
-        setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
-        }, 5000);
-    }
-};
+        }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+        targets.forEach(function (el) { io.observe(el); });
 
-/**
- * Back to Top Module
- */
-const BackToTop = {
-    init() {
-        this.btn = document.getElementById('backToTop');
-        
-        if (this.btn) {
-            this.bindEvents();
+        if (steps.length) {
+            var stepIo = new IntersectionObserver(function (entries, obs) {
+                entries.forEach(function (e) {
+                    if (!e.isIntersecting) return;
+                    var el = e.target;
+                    var order = steps.indexOf(el);
+                    setTimeout(function () { el.classList.add("is-on"); }, Math.max(0, order) * 90);
+                    obs.unobserve(el);
+                });
+            }, { threshold: 0.4 });
+            steps.forEach(function (el) { stepIo.observe(el); });
         }
-    },
-    
-    bindEvents() {
-        window.addEventListener('scroll', () => this.handleScroll());
-        this.btn.addEventListener('click', () => this.scrollToTop());
-    },
-    
-    handleScroll() {
-        if (window.scrollY > 500) {
-            this.btn.classList.add('show');
-        } else {
-            this.btn.classList.remove('show');
-        }
-    },
-    
-    scrollToTop() {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
+    })();
+
+    /* ---------- 回到頂端 ---------- */
+    (function toTop() {
+        var btn = $("#toTop");
+        if (!btn) return;
+
+        var onScroll = function () {
+            btn.classList.toggle("is-visible", window.scrollY > 600);
+        };
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+
+        btn.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
         });
-    }
-};
+    })();
 
-/**
- * Smooth Scroll
- */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
-        if (targetElement) {
-            const headerOffset = 80;
-            const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-            
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
-
-/**
- * Add spin animation style
- */
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-    .spin {
-        animation: spin 1s linear infinite;
-    }
-`;
-document.head.appendChild(style);
+})();
