@@ -1,0 +1,10 @@
+# YoLab 軟體開發工作室
+# 正式站:https://yakitori197.github.io/YoLab/
+#
+# 注意:VPS 上的預覽站(yolab.36-50-249-108.sslip.io)另外由 Caddy 送出
+# X-Robots-Tag: noindex 標頭擋掉索引,不靠這個檔案。
+
+User-agent: *
+Allow: /
+
+Sitemap: https://yakitori197.github.io/YoLab/sitemap.xml

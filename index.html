@@ -35,6 +35,144 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
+
+    <!-- 結構化資料:讓 Google 認得這是什麼組織、提供哪些服務。
+         FAQPage 有機會讓常見問題直接出現在搜尋結果裡。
+         內容必須與頁面上實際顯示的一致,改了 FAQ 文案請同步改這裡。 -->
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "YoLab 軟體開發工作室",
+    "alternateName": "YoLab",
+    "url": "https://yakitori197.github.io/YoLab/",
+    "logo": "https://yakitori197.github.io/YoLab/logo-y.png",
+    "image": "https://yakitori197.github.io/YoLab/og-image.jpg",
+    "description": "台灣的一人軟體開發工作室,替中小企業與製造業把重複的人工作業寫成系統。提供客製化內部系統、流程自動化、爬蟲與資料整合、企業報表儀表板、LINE / Discord Bot 開發。程式碼公開在 GitHub,交付附原始碼與文件。",
+    "areaServed": {
+        "@type": "Country",
+        "name": "台灣"
+    },
+    "availableLanguage": "zh-TW",
+    "sameAs": [
+        "https://github.com/Yakitori197"
+    ],
+    "knowsAbout": [
+        "客製化系統開發",
+        "流程自動化",
+        "網頁爬蟲",
+        "資料整合",
+        "企業報表儀表板",
+        "LINE Bot",
+        "Discord Bot",
+        "Python",
+        "FastAPI",
+        "電腦視覺檢測"
+    ],
+    "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "服務項目",
+        "itemListElement": [
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "客製化內部系統",
+                    "description": "表單、審核、庫存整合進同一套系統,不必再開五個 Excel 互相對數字。"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "流程自動化",
+                    "description": "每天固定要做的抄寫、轉檔、寄報表,改成排程自動執行。"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "爬蟲與資料整合",
+                    "description": "把散在供應商網站、公開資料與內部資料庫的資訊整成一張可用的表。"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "企業報表儀表板",
+                    "description": "老闆想看的數字打開網頁就有,不用等月底人工彙整。"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "LINE / Discord Bot",
+                    "description": "異常、進度、日報主動推到群組。"
+                }
+            },
+            {
+                "@type": "Offer",
+                "itemOffered": {
+                    "@type": "Service",
+                    "name": "系統維護與交接",
+                    "description": "交付附原始碼與文件,上線後仍可回報問題,可轉手給其他工程師。"
+                }
+            }
+        ]
+    }
+}
+    </script>
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {
+            "@type": "Question",
+            "name": "做完就跑怎麼辦?我最怕這個。",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "交付時原始碼、資料庫與部署文件都給你,放在你自己的帳號與主機上,不綁在我這裡。上線後 30 天內的 bug 免費修,之後的調整依工時計費。真的要換人接手,文件與程式碼都能直接交給下一位工程師。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "我不懂技術,會不會被亂報價?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "報價前會先寫一份範圍文件:做哪些功能、不做哪些、幾週、多少錢,用你聽得懂的話寫。你看完同意才開始,中途要加東西也是先估工時再決定。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "一個人做,會不會做太慢或做不完?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "所以我會先確認時程吃不吃得下,吃不下會直接說。單一系統的常見規模是 3 到 8 週,開發期間每週給你一次可以點的版本,進度看得到。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "我們現在都用 Excel,資料要重新輸入嗎?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "不用。既有 Excel 可以直接匯入,欄位對照與資料清理是我的工作。過渡期也可以先讓兩邊並行,確認數字一致再全面切換。"
+            }
+        },
+        {
+            "@type": "Question",
+            "name": "為什麼要把程式碼公開?這樣安全嗎?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "公開的是通用工具與練習專案,客戶的系統與資料不會公開。公開的目的是讓你在付錢之前,能先看到我實際寫出來的東西。"
+            }
+        }
+    ]
+}
+    </script>
     <!-- Styles -->
     <link rel="stylesheet" href="style.css?v=20260830c">
 
