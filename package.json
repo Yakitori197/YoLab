@@ -1,0 +1,19 @@
+{
+  "name": "yolab-website",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "YoLab 軟體開發工作室官方網站",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:pages": "astro build --site https://yakitori197.github.io --base /YoLab",
+    "build:vps": "astro build --site https://yolab.36-50-249-108.sslip.io --base /",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "devDependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "astro": "^7.2.9"
+  }
+}

@@ -7,11 +7,15 @@ Desktop.ini
 .vscode/
 .idea/
 
-# 相依（若日後導入建置工具）
-node_modules/
+# 相依
 .env
 
 # 部署腳本含主機位址與帳號,不推上公開 repo
 deploy-vps.ps1
 claude-design-prompt.md
 _design/
+
+# Astro / Node
+node_modules/
+dist/
+.astro/

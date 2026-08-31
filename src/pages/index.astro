@@ -1,0 +1,407 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  LINE_URL, GITHUB_URL, stack, stats, services, repos, repoUrl,
+  caseCategories, cases, steps, aboutPoints, skills, faqs, withBase,
+} from '../data/site';
+
+const caseUrl = (slug: string) => withBase(`cases/${slug}/`);
+
+// 跑馬燈要無縫循環,把清單接兩份(CSS 動畫位移 -50%)
+const stackLoop = [...stack, ...stack];
+const repoRow1 = repos.slice(0, 6);
+const repoRow2 = repos.slice(6, 12);
+const termLines = [
+  { t: '$ yolab deploy pig-farm-mes --prod', c: '#e2e8f0' },
+  { t: '✓ 場區資料同步      12 場 / 3,480 頭', c: '#4fd39a' },
+  { t: '✓ 每日報表產出      08:00 自動寄送', c: '#4fd39a' },
+  { t: '✓ 自動化測試        888 passed', c: '#4fd39a' },
+  { t: '→ 系統運轉中        uptime 214 天', c: '#63a9f0' },
+];
+const dashBars = [42, 58, 36, 74, 62, 88, 54, 70];
+---
+
+<BaseLayout faqSchema={true}>
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <div class="hero-badge">
+          <span class="pulse" />{stats.repos} 個公開專案 · {stats.tests} 項自動化測試
+        </div>
+        <h1 class="hero-title">每天 3 小時的 Excel 抄寫，<br />可以變成 8 分鐘。</h1>
+        <p class="hero-lead">
+          YoLab 是台灣的一人軟體開發工作室，替中小企業與製造業把重複的人工作業寫成系統。程式碼公開在
+          GitHub，交付附原始碼與文件——不用相信我說的，你可以自己看。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-line" href={LINE_URL} target="_blank" rel="noopener">
+            <span class="line-badge" aria-hidden="true" />用 LINE 免費諮詢
+          </a>
+          <a class="btn btn-ghost" href={GITHUB_URL} target="_blank" rel="noopener">
+            看公開的程式碼 →
+          </a>
+        </div>
+        <p class="hero-note">首次諮詢不收費 · 24 小時內回覆 · 報價前先講清楚範圍</p>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-stage">
+          <div class="hero-slide is-active" data-slide="0">
+            <div class="term">
+              <div class="term-bar">
+                <span class="td td-r" /><span class="td td-y" /><span class="td td-g" />
+                <span class="term-name">pig-farm-mes — production</span>
+              </div>
+              <div class="term-body" id="termBody">
+                {termLines.map((l) => (
+                  <div class="term-line" data-color={l.c}>{l.t}</div>
+                ))}
+                <span class="term-caret" />
+              </div>
+              <div class="term-foot">
+                <span>888 tests passed</span><span class="term-up">● uptime 214d</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-slide" data-slide="1">
+            <div class="dash">
+              <div class="dash-head">
+                <span class="dash-title">場區日報 · 即時看板</span>
+                <span class="dash-sync">08:00 自動更新</span>
+              </div>
+              <div class="dash-kpis">
+                <div class="kpi"><span class="kpi-label">今日填報</span><span class="kpi-value">12 / 12</span></div>
+                <div class="kpi"><span class="kpi-label">在養頭數</span><span class="kpi-value">3,480</span></div>
+                <div class="kpi"><span class="kpi-label">異常</span><span class="kpi-value">0</span></div>
+              </div>
+              <div class="dash-chart">
+                {dashBars.map((h, i) => (
+                  <div class={i === 5 ? 'bar is-hi' : 'bar'}>
+                    <i style={`height:${h}%`} /><b>D{i + 1}</b>
+                  </div>
+                ))}
+              </div>
+              <div class="dash-rows">
+                <div class="drow"><span>A1 場區 · 08:04 已填報</span><b>312 頭</b></div>
+                <div class="drow"><span>B2 場區 · 08:06 已填報</span><b>301 頭</b></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-slide" data-slide="2">
+            <div class="hero-repos">
+              {repos.slice(0, 3).map((r) => (
+                <a class="hrepo" href={repoUrl(r)} target="_blank" rel="noopener">
+                  <div class="hrepo-top"><code>{r.name}</code><span class="lang">{r.lang}</span></div>
+                  <p>{r.desc}</p>
+                </a>
+              ))}
+              <p class="hrepo-more">…共 {stats.repos} 個公開專案</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-dots" role="tablist" aria-label="首頁展示切換">
+          <button class="dot-btn is-active" data-dot="0" role="tab" aria-label="終端機畫面" />
+          <button class="dot-btn" data-dot="1" role="tab" aria-label="儀表板畫面" />
+          <button class="dot-btn" data-dot="2" role="tab" aria-label="公開專案" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 技術棧跑馬燈 ===== -->
+  <div class="stack-strip" aria-label="使用的技術">
+    <div class="marquee-track marquee-left stack-track" data-marquee>
+      {stackLoop.map((s) => <span>{s}</span>)}
+    </div>
+    <span class="strip-fade" aria-hidden="true" />
+  </div>
+
+  <!-- ===== 數據列 ===== -->
+  <section class="stats" aria-label="關鍵數據">
+    <div class="container stats-grid">
+      <a class="stat stat-link" href={GITHUB_URL} target="_blank" rel="noopener">
+        <div class="stat-num">
+          <span class="count" data-count={stats.repos}>0</span><span class="unit">個</span>
+        </div>
+        <div class="stat-label">公開專案<br /><span class="stat-cta">在 GitHub 查看 ↗</span></div>
+      </a>
+      <a class="stat stat-link" href={GITHUB_URL} target="_blank" rel="noopener">
+        <div class="stat-num">
+          <span class="count" data-count={stats.tests}>0</span><span class="unit">項</span>
+        </div>
+        <div class="stat-label">自動化測試<br /><span class="stat-cta">在 GitHub 查看 ↗</span></div>
+      </a>
+      <div class="stat">
+        <div class="stat-num stat-plain">
+          <span class="count" data-count={stats.industries}>0</span><span class="unit">類</span>
+        </div>
+        <div class="stat-label">服務過的產業別<br /><span class="stat-muted">畜牧、金屬加工、品管…</span></div>
+      </div>
+      <div class="stat stat-green">
+        <div class="stat-ba">
+          <span class="ba-before">3小時</span>
+          <span class="ba-arrow">→</span>
+          <span class="ba-after">8分鐘</span>
+        </div>
+        <div class="stat-label">客戶每日作業時間<br /><span class="stat-muted">畜牧業日報彙整，實際案例</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 服務項目 ===== -->
+  <section class="services" id="services">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-tag">SERVICES</div>
+        <h2 class="sec-title">你手上哪一件事最煩，就先從那件開始</h2>
+        <p class="sec-desc">不從技術名詞談起。先看你每天重複在做什麼，再決定要不要寫系統。</p>
+      </div>
+      <div class="svc-grid">
+        {services.map((s) => (
+          <article class="svc reveal">
+            <span class="svc-icon" aria-hidden="true" />
+            <h3>{s.title}</h3>
+            <p>{s.pain}</p>
+            <div class="svc-tech">{s.tech}</div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 開源實驗室 ===== -->
+  <section class="oss" id="opensource">
+    <div class="container oss-head">
+      <div class="oss-intro">
+        <div class="sec-tag sec-tag-green">OPEN SOURCE LAB</div>
+        <h2 class="sec-title">程式碼是公開的，你可以自己去看</h2>
+        <p class="sec-desc">
+          下面每一張卡都是一個真實存在的 repo，不是示意圖。想知道我怎麼寫程式、註解寫不寫、測試有沒有跑，點進去看最快。
+        </p>
+      </div>
+      <a class="btn btn-outline-light" href={GITHUB_URL} target="_blank" rel="noopener">前往 GitHub ↗</a>
+    </div>
+
+    <div class="oss-rows">
+      <div class="oss-row">
+        <div class="marquee-track marquee-left oss-track" data-marquee>
+          {[...repoRow1, ...repoRow1].map((r, i) => (
+            <a
+              class="repo"
+              href={repoUrl(r)}
+              target="_blank"
+              rel="noopener"
+              aria-hidden={i >= repoRow1.length ? 'true' : undefined}
+              tabindex={i >= repoRow1.length ? -1 : undefined}
+            >
+              <code>{r.name}</code>
+              <p>{r.desc}</p>
+              <div class="repo-foot">
+                <span class="lang">{r.lang}</span><span class="go">在 GitHub 上看 ↗</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="oss-row">
+        <div class="marquee-track marquee-right oss-track" data-marquee>
+          {[...repoRow2, ...repoRow2].map((r, i) => (
+            <a
+              class="repo"
+              href={repoUrl(r)}
+              target="_blank"
+              rel="noopener"
+              aria-hidden={i >= repoRow2.length ? 'true' : undefined}
+              tabindex={i >= repoRow2.length ? -1 : undefined}
+            >
+              <code>{r.name}</code>
+              <p>{r.desc}</p>
+              <div class="repo-foot">
+                <span class="lang">{r.lang}</span><span class="go">在 GitHub 上看 ↗</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 專案案例 ===== -->
+  <section class="cases" id="projects">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-tag">CASE STUDIES</div>
+        <h2 class="sec-title">交付前後長什麼樣，直接放在一起比</h2>
+        <p class="sec-desc">客戶名稱不公開，只寫產業別與可量化的結果。示意畫面已去識別化。</p>
+      </div>
+
+      <div class="case-tabs" role="tablist" aria-label="案例分類">
+        {caseCategories.map((c, i) => (
+          <button
+            class={i === 0 ? 'tab is-active' : 'tab'}
+            data-filter={c.key}
+            role="tab"
+            aria-selected={i === 0 ? 'true' : 'false'}
+          >
+            {c.label}
+          </button>
+        ))}
+      </div>
+
+      <div class="case-grid" id="caseGrid">
+        {cases.map((c) => (
+          <article class="case reveal" data-category={c.category}>
+            <header class="case-head">
+              <div class="case-tags">
+                <span class="pill">{c.industry}</span>
+                <span class="pill pill-blue">{c.categoryLabel}</span>
+                <span class={c.live ? 'pill-status is-live' : 'pill-status'}>{c.status}</span>
+              </div>
+              <h3>{c.title}</h3>
+            </header>
+            <div class="ba">
+              <div class="ba-col">
+                <div class="ba-label"><i />BEFORE · 原本的做法</div>
+                <div class="mock">
+                  <div class="mock-bar"><span class="xls" />{c.beforeFile}</div>
+                  <div class="sheet">
+                    <span class="sh sh-idx" />
+                    {['A', 'B', 'C', 'D'].map((h) => <span class="sh sh-head">{h}</span>)}
+                    <span class="sh sh-idx">1</span>
+                    {c.sheet.head.map((h) => <span class="sh">{h}</span>)}
+                    {c.sheet.rows.map((row, ri) => (
+                      <>
+                        <span class="sh sh-idx">{ri + 2}</span>
+                        {row.map((cell) => (
+                          <span class={cell.warn ? 'sh sh-warn' : 'sh'}>{cell.t}</span>
+                        ))}
+                      </>
+                    ))}
+                  </div>
+                </div>
+                <p class="ba-text">{c.before}</p>
+              </div>
+              <div class="ba-col">
+                <div class="ba-label ba-label-after"><i />AFTER · 交付後</div>
+                <div class="mock mock-app">
+                  <div class="mock-bar mock-bar-app"><span class="app-dot" />{c.afterFile}</div>
+                  <div class="mini">
+                    <div class="mini-kpis">
+                      <span>{c.kpis[0]}</span><span>{c.kpis[1]}</span>
+                    </div>
+                    <div class="mini-chart">
+                      {c.bars.map((h, i) => (
+                        <i class={i % 3 === 2 ? 'hi' : undefined} style={`height:${h}%`} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p class="ba-text">{c.after}</p>
+              </div>
+            </div>
+            <footer class="case-results">
+              {c.results.map((r) => <span>{r}</span>)}
+              <a class="case-more" href={caseUrl(c.slug)}>看完整案例 →</a>
+            </footer>
+          </article>
+        ))}
+      </div>
+      <p class="case-empty" id="caseEmpty" hidden>這個分類目前沒有可公開的案例。</p>
+    </div>
+  </section>
+
+  <!-- ===== 合作流程 ===== -->
+  <section class="process" id="process">
+    <div class="container">
+      <div class="sec-head">
+        <div class="sec-tag">PROCESS</div>
+        <h2 class="sec-title">從第一次聊到上線之後，都寫清楚</h2>
+        <p class="sec-desc">每一步要花多久、你要做什麼、我交出什麼，事前就講明白。</p>
+      </div>
+      <ol class="timeline" id="timeline">
+        {steps.map((s, i) => (
+          <li class={i === steps.length - 1 ? 'step step-last reveal' : 'step reveal'}>
+            <span class="step-node" aria-hidden="true" />
+            <div class="step-no">{s.no}</div>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+            <div class={s.green ? 'step-meta step-meta-green' : 'step-meta'}>{s.meta}</div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== 關於 ===== -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-copy">
+        <div class="sec-tag">ABOUT</div>
+        <h2 class="sec-title">談需求的人，就是動手寫的人</h2>
+        <p class="sec-desc">一人工作室的意思是：需求不會傳話傳歪，也不會做到一半換人接手。</p>
+        <ul class="about-points">
+          {aboutPoints.map((p) => (
+            <li>
+              <span class="ap-dot" aria-hidden="true" />
+              <div><b>{p.title}</b><p>{p.desc}</p></div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="skills">
+        <h3 class="skills-title">技術專長</h3>
+        {skills.map((s) => (
+          <div class="skill">
+            <div class="skill-top"><b>{s.name}</b><span>{s.years}</span></div>
+            <p>{s.items}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 常見問題 ===== -->
+  <section class="faq" id="faq">
+    <div class="container container-narrow">
+      <h2 class="sec-title sec-title-center">常見問題</h2>
+      <div class="faq-list">
+        {faqs.map((f, i) => (
+          <div class={i === 0 ? 'faq-item is-open' : 'faq-item'}>
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? 'true' : 'false'}>
+              {f.q}<span class="faq-icon" aria-hidden="true" />
+            </button>
+            <div class="faq-a"><p>{f.a}</p></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 諮詢 CTA ===== -->
+  <section class="cta" id="contact">
+    <div class="container cta-inner">
+      <h2>先把流程講一遍，再決定要不要做</h2>
+      <p>
+        第一次諮詢不收費，也不會急著要你簽約。講完你可能會發現這件事不用寫系統——那我也會直接說。
+      </p>
+      <div class="cta-actions">
+        <a class="btn btn-line btn-lg" href={LINE_URL} target="_blank" rel="noopener">
+          <span class="line-badge" aria-hidden="true" />用 LINE 免費諮詢
+        </a>
+        <a
+          class="btn btn-outline-light btn-lg"
+          href="https://docs.google.com/forms/d/e/1FAIpQLScYU3SUb4xVANasS9cO1t3t267NSpO1oTtqXOTuNGhVoNNZpA/viewform"
+          target="_blank"
+          rel="noopener"
+        >
+          或填表單留下需求
+        </a>
+      </div>
+      <p class="cta-note">24 小時內回覆 · LINE ID：@442fjdqq</p>
+    </div>
+  </section>
+</BaseLayout>

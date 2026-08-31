@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { cases, withBase, LINE_URL, type CaseStudy } from '../../data/site';
+
+export function getStaticPaths() {
+  return cases.map((c, i) => ({
+    params: { slug: c.slug },
+    props: {
+      c,
+      prev: cases[(i - 1 + cases.length) % cases.length],
+      next: cases[(i + 1) % cases.length],
+    },
+  }));
+}
+
+interface Props {
+  c: CaseStudy;
+  prev: CaseStudy;
+  next: CaseStudy;
+}
+
+const { c, prev, next } = Astro.props;
+const caseUrl = (slug: string) => withBase(`cases/${slug}/`);
+---
+
+<BaseLayout
+  title={`${c.title}｜${c.industry}案例 - YoLab 軟體開發工作室`}
+  description={c.summary}
+  path={`cases/${c.slug}/`}
+>
+  <article class="case-page">
+    <div class="container container-narrow">
+      <nav class="crumbs" aria-label="麵包屑">
+        <a href={withBase()}>首頁</a>
+        <span aria-hidden="true">›</span>
+        <a href={withBase('#projects')}>專案案例</a>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page">{c.title}</span>
+      </nav>
+
+      <header class="case-hero">
+        <div class="case-tags">
+          <span class="pill">{c.industry}</span>
+          <span class="pill pill-blue">{c.categoryLabel}</span>
+          <span class={c.live ? 'pill-status is-live' : 'pill-status'}>{c.status}</span>
+        </div>
+        <h1>{c.title}</h1>
+        <p class="case-summary">{c.summary}</p>
+        <dl class="case-meta">
+          <div><dt>開發期間</dt><dd>{c.detail.duration}</dd></div>
+          <div><dt>技術</dt><dd>{c.detail.stack.join(' · ')}</dd></div>
+        </dl>
+      </header>
+
+      <section class="case-block">
+        <h2>客戶原本的做法</h2>
+        <p>{c.detail.context}</p>
+      </section>
+
+      <section class="case-block">
+        <h2>交付前後對照</h2>
+        <div class="ba ba-page">
+          <div class="ba-col">
+            <div class="ba-label"><i />BEFORE · 原本的做法</div>
+            <div class="mock">
+              <div class="mock-bar"><span class="xls" />{c.beforeFile}</div>
+              <div class="sheet">
+                <span class="sh sh-idx" />
+                {['A', 'B', 'C', 'D'].map((h) => <span class="sh sh-head">{h}</span>)}
+                <span class="sh sh-idx">1</span>
+                {c.sheet.head.map((h) => <span class="sh">{h}</span>)}
+                {c.sheet.rows.map((row, ri) => (
+                  <>
+                    <span class="sh sh-idx">{ri + 2}</span>
+                    {row.map((cell) => (
+                      <span class={cell.warn ? 'sh sh-warn' : 'sh'}>{cell.t}</span>
+                    ))}
+                  </>
+                ))}
+              </div>
+            </div>
+            <p class="ba-text">{c.before}</p>
+          </div>
+          <div class="ba-col">
+            <div class="ba-label ba-label-after"><i />AFTER · 交付後</div>
+            <div class="mock mock-app">
+              <div class="mock-bar mock-bar-app"><span class="app-dot" />{c.afterFile}</div>
+              <div class="mini">
+                <div class="mini-kpis"><span>{c.kpis[0]}</span><span>{c.kpis[1]}</span></div>
+                <div class="mini-chart">
+                  {c.bars.map((h, i) => (
+                    <i class={i % 3 === 2 ? 'hi' : undefined} style={`height:${h}%`} />
+                  ))}
+                </div>
+              </div>
+            </div>
+            <p class="ba-text">{c.after}</p>
+          </div>
+        </div>
+        <p class="ba-note">畫面為示意，已去識別化，不含客戶的真實資料。</p>
+      </section>
+
+      <section class="case-block">
+        <h2>怎麼做的</h2>
+        <ol class="case-steps">
+          {c.detail.approach.map((a) => <li>{a}</li>)}
+        </ol>
+      </section>
+
+      <section class="case-block">
+        <h2>結果</h2>
+        <p>{c.detail.outcome}</p>
+        <div class="case-results case-results-page">
+          {c.results.map((r) => <span>{r}</span>)}
+        </div>
+      </section>
+
+      <nav class="case-nav" aria-label="其他案例">
+        <a class="case-nav-item" href={caseUrl(prev.slug)}>
+          <span class="case-nav-dir">← 上一個案例</span>
+          <span class="case-nav-title">{prev.title}</span>
+          <span class="case-nav-industry">{prev.industry}</span>
+        </a>
+        <a class="case-nav-item case-nav-next" href={caseUrl(next.slug)}>
+          <span class="case-nav-dir">下一個案例 →</span>
+          <span class="case-nav-title">{next.title}</span>
+          <span class="case-nav-industry">{next.industry}</span>
+        </a>
+      </nav>
+    </div>
+
+    <section class="cta">
+      <div class="container cta-inner">
+        <h2>你手上也有類似的狀況嗎？</h2>
+        <p>先聊聊你現在怎麼做這件事，我再告訴你值不值得寫成系統。第一次諮詢不收費。</p>
+        <div class="cta-actions">
+          <a class="btn btn-line btn-lg" href={LINE_URL} target="_blank" rel="noopener">
+            <span class="line-badge" aria-hidden="true" />用 LINE 免費諮詢
+          </a>
+          <a class="btn btn-outline-light btn-lg" href={withBase('#projects')}>看其他案例</a>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>

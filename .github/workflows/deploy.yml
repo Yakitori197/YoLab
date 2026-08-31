@@ -1,0 +1,60 @@
+# 建置 Astro 網站並部署到 GitHub Pages
+#
+# ⚠ 這個 workflow 要生效,必須先到 GitHub 上把 Pages 的來源改成 "GitHub Actions":
+#   Settings → Pages → Build and deployment → Source 選 "GitHub Actions"
+#
+#   在切換之前,Pages 仍然從 main 分支的根目錄取檔案,所以 repo 根目錄的
+#   index.html / style.css / main.js 這些舊檔要留著,網站才不會中斷。
+#   等這個 workflow 成功部署、確認網站正常之後,那些舊檔才可以刪。
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 同時只跑一個部署,新的推送不取消進行中的部署(避免部署到一半被砍)
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取得原始碼
+        uses: actions/checkout@v4
+
+      - name: 安裝 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 安裝相依套件
+        run: npm ci
+
+      - name: 建置(GitHub Pages 子路徑版)
+        run: npm run build:pages
+
+      - name: 上傳產出
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 部署到 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
